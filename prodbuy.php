@@ -15,7 +15,6 @@ $prodId = $_GET['u_prod_id'];
 echo "<p>Product Id is: " . $prodId . "</p>";
 
 $sql = "select prodId, prodName ,prodPicNameLarge, prodDescripLong, prodPrice, prodQuantity from product WHERE prodId =" . $prodId . "";
-
 $execsql = mysqli_query($conn, $sql) or die("Could't connect: " . mysqli_error($conn));
 
 
@@ -33,13 +32,14 @@ while ($arrayp = mysqli_fetch_array($execsql)) {
     echo "<b> $" . $arrayp['prodPrice'] . "</b>";
     echo "<p><br></p>";
     echo "<p> Left in Stock " . $arrayp['prodQuantity'] . "</p>";
+    echo "<p>Number to be purchased: ";
+    echo "<form action=basket.php method=post>";
+
     echo "<select name= p_quantity>";
     for ($i = 1; $i <= $arrayp['prodQuantity']; $i++) {
         echo "<option value = '$i'> $i</option>";
     };
     echo "</select>";
-    echo "<p>Number to be purchased: ";
-    echo "<form action=basket.php method=post>";
 
     echo "<input type=submit name='submitbtn' value='ADD TO BASKET' id='submitbtn'>";
     echo "<input type=hidden name=h_prodid value=" . $prodId . ">";
